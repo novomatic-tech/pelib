@@ -20,7 +20,12 @@ if(NOT TARGET pelib)
 		SecurityDirectory.cpp
 	)
 
-	add_library(pelib STATIC ${PELIB_SOURCES})
-	target_include_directories(pelib SYSTEM PUBLIC ${PROJECT_SOURCE_DIR}/include/)
+	add_library(pelib-static STATIC ${PELIB_SOURCES})
+	add_library(pelib-shared SHARED ${PELIB_SOURCES})
+	target_include_directories(pelib-static SYSTEM PUBLIC ${PROJECT_SOURCE_DIR}/include/)
+	target_include_directories(pelib-shared SYSTEM PUBLIC ${PROJECT_SOURCE_DIR}/include/)
+	install(TARGETS pelib-static pelib-shared)
+	install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/ DESTINATION include)
+
 
 endif()
